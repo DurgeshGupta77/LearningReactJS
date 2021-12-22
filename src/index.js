@@ -4,6 +4,14 @@ import reactDom from "react-dom";
 //Importing our CSS file
 import './index.css';
 
+//Importing book.js file because it contains our API
+//We are using named import here
+import { booksObject } from './book';
+
+//Importing Books.js file because it contains our smaller components
+//We are using default import here
+import Books from './Books';
+
 /*
   Using Traditional Function
 */
@@ -61,38 +69,29 @@ Using React.createElement to create a element
 function BookList() {
   return (
     <section className="book-lists">
-      <Books />
-      <Books />
-      <Books />
-      <Books />
-      <Books />
-      <Books />
-      <Books />
-      <Books />
-      <Books />
-      <Books />
+      {booksObject.map((book) => {
+        return <Books key={book.id} {...book}></Books>
+      })};
+
+      {/* {newNames} */}
+      {/* <Books
+        imageUrl={booksObject[0].imageUrl}
+        bookTitle={booksObject[0].bookTitle}
+        authorName={booksObject[0].authorName}
+      /> */}
+
+      {/* For the second Book we will also pass children prop
+       */}
+      {/* <Books
+        imageUrl={booksObject[1].imageUrl}
+        bookTitle={booksObject[1].bookTitle}
+        authorName={booksObject[1].authorName}
+      >
+        <p>Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum </p>
+      </Books> */}
+
     </section>
   );
 }
-
-const Books = () => {
-  return (
-    <article className="book">
-      <Image />
-      <Title />
-      <Author />
-    </article>
-  );
-}
-
-const Image = () => <img className="image-book" src="https://images-na.ssl-images-amazon.com/images/I/51p2SDOCV9L._SX482_BO1,204,203,200_.jpg" alt="Image of Book" />
-const Title = () => {
-  return <h1>I Love You to the Moon and Back Board book - Illustrated, March 3, 2015</h1>
-};
-const Author = () => {
-  //Here we will use inline CSS rather than importing from index.css
-  return <h4 style={{ color: '#617d98', fontSize: '0.75rem', marginTop: '10px', letterSpacing: '5px' }}>by Amelia Hepworth</h4>
-};
-
 
 reactDom.render(<BookList />, document.getElementById("root"));
